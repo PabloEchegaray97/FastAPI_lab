@@ -46,9 +46,19 @@ async def user(user: User):
             found = True
     if not found:
         return {"Error": "No se ha encontrado el usuario"}
+    return user
 
 #DELETE
-
+@app.delete("/user/{id}")
+async def user(id: int):
+    found = False
+    for index, saved_user in enumerate(users_list):
+        if saved_user.id == id:
+            del users_list[index] 
+            found = True
+    if not found:
+        return {"Error": "No se ha eliminado el usuario"}
+    return user
 
 def search_user(id: int):
     users = filter(lambda user: user.id == id, users_list)
